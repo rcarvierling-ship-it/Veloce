@@ -1,0 +1,43 @@
+{
+  "appId": "com.veloce.app",
+  "productName": "Veloce",
+  "copyright": "Copyright © 2024",
+  "directories": {
+    "buildResources": "build"
+  },
+  "files": [
+    "!**/.eslintrc.cjs",
+    "!src/**",
+    "out/**"
+  ],
+  "asarUnpack": [
+    "resources/**",
+    "node_modules/sharp/**",
+    "node_modules/@img/**"
+  ],
+  "mac": {
+    "entitlementsInherit": "build/entitlements.mac.plist",
+    "extendInfo": {
+      "NSCameraUsageDescription": "Application requests access to the device's camera.",
+      "NSMicrophoneUsageDescription": "Application requests access to the device's microphone.",
+      "NSDocumentsFolderUsageDescription": "Application requests access to the user's Documents folder.",
+      "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
+    },
+    "notarize": false
+  },
+  "win": {
+    "executableName": "Veloce"
+  },
+  "nsis": {
+    "artifactName": "${name}-${version}-setup.${ext}",
+    "shortcutName": "${productName}",
+    "uninstallDisplayName": "${productName}",
+    "createDesktopShortcut": "always"
+  },
+  "linux": {
+    "target": ["AppImage", "snap", "deb"],
+    "maintainer": "electronjs.org",
+    "category": "Utility"
+  },
+  "npmRebuild": true
+}
