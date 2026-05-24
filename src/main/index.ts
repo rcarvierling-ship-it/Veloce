@@ -176,6 +176,14 @@ app.whenReady().then(async () => {
   const mainWindow = createWindow()
   buildMenu(mainWindow)
 
+  // Auto-open folder from CLI arg or env var (useful for testing)
+  const autoFolder = process.argv.find(a => a.startsWith('--folder='))?.slice(9) || process.env.VELOCE_OPEN_FOLDER
+  if (autoFolder) {
+    mainWindow.webContents.once('did-finish-load', () => {
+      setTimeout(() => mainWindow.webContents.send('open-folder', autoFolder), 500)
+    })
+  }
+
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
